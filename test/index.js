@@ -2,8 +2,8 @@
 'use strict';
 var assert = require('assert');
 var is = require('is');
-var Wikia = require('../');
-var tibia = new Wikia('tibia');
+var wikia = require('../');
+var tibia = new wikia('tibia');
 
 describe('node-wikia requests', function () {
   it('getNavigation()', function () {
