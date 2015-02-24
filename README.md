@@ -29,7 +29,29 @@ tibia
 ```
 
 ## API
+### Summary
+#### Activity
+* [getLatestActivity(options)](https://github.com/TibiaJS/node-wikia#getlatestactivityoptions)
+* [getRecentlyChangedArticles(options)](https://github.com/TibiaJS/node-wikia#getrecentlychangedarticlesoptions)
 
+#### Navigation
+* [getNavigation()](https://github.com/TibiaJS/node-wikia#getnavigation)
+
+#### Recommendations
+* [getRecommendations(options)](https://github.com/TibiaJS/node-wikia#getrecommendationsoptions)
+
+#### Related Pages
+* [getRelatedPages(options)](https://github.com/TibiaJS/node-wikia#getrelatedpagesoptions)
+
+#### Search Suggestion
+* [getSearchSuggestion(options)](https://github.com/TibiaJS/node-wikia#getsearchsuggestionoptions)
+
+#### User
+* [getUsers(options)](https://github.com/TibiaJS/node-wikia#getusersoptions)
+
+=====
+
+### Methods
 #### getLatestActivity(options)
 Get latest activity information
 ##### Options
