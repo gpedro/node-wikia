@@ -8,7 +8,7 @@ var Q = require('q'),
   return value.replace(/^\s+|\s+$/g, '');
 },
 split = function(value, cb) {
-  return value.split(",").map(cb);
+  return value.split(',').map(cb);
 },
 splitIsInt = function(value) {
   return split(value, function (val) { return is.int(parseInt(val)); });
