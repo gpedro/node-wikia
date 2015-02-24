@@ -31,29 +31,34 @@ tibia
 ## API
 ### Summary
 #### Activity
-* [getLatestActivity(options)](https://github.com/TibiaJS/node-wikia#getlatestactivityoptions)
-* [getRecentlyChangedArticles(options)](https://github.com/TibiaJS/node-wikia#getrecentlychangedarticlesoptions)
+Get information about the latest user activity on the current wiki
+* [getLatestActivity(options)](https://github.com/TibiaJS/node-wikia#getlatestactivityoptions) - Get latest activity information
+* [getRecentlyChangedArticles(options)](https://github.com/TibiaJS/node-wikia#getrecentlychangedarticlesoptions) - Get recently changed articles
 
 #### Navigation
-* [getNavigation()](https://github.com/TibiaJS/node-wikia#getnavigation)
+Get wiki navigation links (the main menu of given wiki)
+* [getNavigation()](https://github.com/TibiaJS/node-wikia#getnavigation) - Get wiki navigation links (the main menu of given wiki)
 
 #### Recommendations
-* [getRecommendations(options)](https://github.com/TibiaJS/node-wikia#getrecommendationsoptions)
+Get recommendations for article from many sources
+* [getRecommendations(options)](https://github.com/TibiaJS/node-wikia#getrecommendationsoptions) - Get recommendations for article from many sources
 
 #### Related Pages
-* [getRelatedPages(options)](https://github.com/TibiaJS/node-wikia#getrelatedpagesoptions)
+Get pages related to a given article ID
+* [getRelatedPages(options)](https://github.com/TibiaJS/node-wikia#getrelatedpagesoptions) - Get pages related to a given article ID
 
 #### Search Suggestion
-* [getSearchSuggestion(options)](https://github.com/TibiaJS/node-wikia#getsearchsuggestionoptions)
+Find suggested phrases for chosen query
+* [getSearchSuggestion(options)](https://github.com/TibiaJS/node-wikia#getsearchsuggestionoptions) - Find suggested phrases for chosen query
 
 #### User
-* [getUsers(options)](https://github.com/TibiaJS/node-wikia#getusersoptions)
+Get details about selected users
+* [getUsers(options)](https://github.com/TibiaJS/node-wikia#getusersoptions) - Get details about selected users
 
 =====
 
 ### Methods
 #### getLatestActivity(options)
-Get latest activity information
 ##### Options
 * limit - optional - integer
 * namespaces - optional -array
@@ -75,7 +80,6 @@ Get latest activity information
 
 ````
 #### getRecentlyChangedArticles(options)
-Get recently changed articles
 ##### Options
 * limit - optional - integer
 * namespaces - optional -array
@@ -97,7 +101,6 @@ Get recently changed articles
 ````
 
 #### getNavigation()
-Get wiki navigation links (the main menu of given wiki).
 ##### Returns
 ````json
 {
@@ -121,7 +124,6 @@ Get wiki navigation links (the main menu of given wiki).
 }
 ````
 #### getRecommendations(options)
-Get recommendations for article from many sources
 ##### Options
 * id - required - integer
 * limit - optional, integer
@@ -149,7 +151,6 @@ Get recommendations for article from many sources
 ````
 
 #### getRelatedPages(options)
-Get pages related to a given article ID
 ##### Options
 * ids - required - integer
 * limit - optional, integer
@@ -170,7 +171,6 @@ Get pages related to a given article ID
 }
 ````
 #### getSearchSuggestion(options)
-Find suggested phrases for chosen query
 ##### Options
 * query - required - string
 
@@ -185,7 +185,6 @@ Find suggested phrases for chosen query
 }
 ````
 #### getUsers(options)
-Get details about selected users 
 ##### Options
 * ids - required - array 
 * size - optional - integer
