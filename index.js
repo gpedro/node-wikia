@@ -6,13 +6,13 @@ var Q = require('q'),
   req = require('request'),
  trim = function(value) {
   return value.replace(/^\s+|\s+$/g, '');
- },
- split = function(value, cb) {
+},
+split = function(value, cb) {
   return value.split(",").map(cb);
- },
- splitIsInt = function(value) {
+},
+splitIsInt = function(value) {
   return split(value, function (val) { return is.int(parseInt(val)); });
- };
+};
 
 
 function Wikia(subdomain) {
@@ -46,7 +46,7 @@ Wikia.prototype._getActivity = function(method, options) {
 
   if(options !== undefined) {
     if(options.limit !== undefined && !is.int(options.limit)) {
-      throw new Error('Only allowed integer value to Limit option');
+      throw new Error('Parameter \'limit\' need be integer value');
     }
 
     if(options.namespaces !== undefined) {
@@ -56,16 +56,15 @@ Wikia.prototype._getActivity = function(method, options) {
       }
 
       if(!is.array(options.namespaces) || splitIsInt(trim(options.namespaces)).indexOf(false)) {
-        throw new Error('Only allowed integer values to Namespaces option');
+        throw new Error('Parameter \'namespaces\' need be integer value or integer array');
       }
 
     }
 
     options.namespaces = (options.namespaces).join(',');
 
-
     if(options.allowDuplicates !== undefined && !is.boolean(options.allowDuplicates)) {
-      throw new Error('Only allowed boolean value to AllowDuplicates option');
+      throw new Error('Parameter \'allowDuplicates\' need be boolean value');
     }
   }
 
@@ -87,32 +86,35 @@ Wikia.prototype.getNavigation = function() {
 };
 
 Wikia.prototype.getRecommendations = function(options) {
-    if(options !== undefined) {
+  if(options !== undefined) {
 
-      if(options.id !== undefined && !is.int(options.id)) {
-        throw new Error('Only allowed integer values to Ids option');
-      }
+    if(options.id === undefined) {
+      throw new Error('Parameter \'id\' is required');
+    } else if (!is.int(options.id)) {
+      throw new Error('Parameter \'id\' need be integer value');
+    }
 
-      if(options.limit !== undefined && !is.int(options.limit)) {
-        throw new Error('Only allowed integer value to Limit option');
-      } else {
-        if(options.limit < 1 && options.limit > 30) {
-          throw new Error('Only allowed value between 1 and 30 in Limit option');
-        }
-
+    if(options.limit !== undefined && !is.int(options.limit)) {
+      throw new Error('Parameter \'limit\' exceeds limit of 1');
+    } else {
+      if(options.limit < 1) {
+      } else if(options.limit > 30) {
+        throw new Error('Parameter \'limit\' exceeds limit of 30');
       }
 
     }
+
+  }
 
   var url = this._genUrl('Recommendations/ForArticle', options);
   return this._request(url);
 };
 
 Wikia.prototype.getRelatedPages = function(options) {
-    if(options !== undefined) {
+  if(options !== undefined) {
 
     if(options.ids === undefined) {
-      throw new Error('Only allowed integer values to Ids option');
+      throw new Error('Parameter \'ids\' is required');
     } else {
 
       if(is.string(options.ids)) {
@@ -124,14 +126,14 @@ Wikia.prototype.getRelatedPages = function(options) {
       }
 
       if(!is.array(options.ids)) {
-        throw new Error('Only allowed integer values to Ids option');
+        throw new Error('Parameter \'ids\' need be integer value or integer array');
       }
     }
 
     options.ids = (options.ids).join(',');
 
     if(options.limit !== undefined && !is.int(options.limit)) {
-      throw new Error('Only allowed integer value to Size option');
+      throw new Error('Parameter \'limit\' need be integer value');
     }
   }
 
@@ -141,7 +143,7 @@ Wikia.prototype.getRelatedPages = function(options) {
 
 Wikia.prototype.getSearchSuggestion = function(query) {
   if(query === undefined) {
-    throw new Error('Query is required');
+    throw new Error('Parameter \'query\' is required');
   }
 
   var url = this._genUrl('SearchSuggestions/List', {query: query});
@@ -152,7 +154,7 @@ Wikia.prototype._getUsers = function(options) {
   if(options !== undefined) {
 
     if(options.ids === undefined) {
-      throw new Error('Ids option is required');
+      throw new Error('Parameter \'ids\' is required');
     } else {
 
       if(is.int(options.ids)) {
@@ -160,14 +162,14 @@ Wikia.prototype._getUsers = function(options) {
       }
 
       if(!is.array(options.ids)) {
-        throw new Error('Only allowed integer values to Ids option');
+        throw new Error('Parameter \'ids\' need be integer value or integer array');
       }
     }
 
     options.ids = (options.ids).join(',');
 
     if(options.size !== undefined && !is.int(options.size)) {
-      throw new Error('Only allowed integer value to Size option');
+      throw new Error('Parameter \'size\' need be integer value');
     }
   }
 
