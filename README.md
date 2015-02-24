@@ -47,6 +47,11 @@ Get recommendations for article from many sources
 Get pages related to a given article ID
 * [getRelatedPages(options)](https://github.com/TibiaJS/node-wikia#getrelatedpagesoptions) - Get pages related to a given article ID
 
+#### Search
+Get results for combined (wiki and cross-wiki) search
+* [getSearchCrossWiki(options)](https://github.com/TibiaJS/node-wikia#getsearchcrosswikioptions) - Get results for cross-wiki search (extended response)
+* [getSearchList(options)](https://github.com/TibiaJS/node-wikia#getsearchlistoptions) - Do search for given phrase
+
 #### Search Suggestion
 Find suggested phrases for chosen query
 * [getSearchSuggestion(options)](https://github.com/TibiaJS/node-wikia#getsearchsuggestionoptions) - Find suggested phrases for chosen query
@@ -57,12 +62,16 @@ Get details about selected users
 
 =====
 
+__*__ required
+
 ### Methods
 #### getLatestActivity(options)
 ##### Options
-* limit - optional - integer
-* namespaces - optional -array
-* allowDuplicates - optional - boolean
+| Parameter | Data Type |
+|-------------|-----------|
+| limit | integer |
+| namespaces | array string |
+| allowDuplicates | boolean |
 
 ##### Returns
 ````json
@@ -81,9 +90,11 @@ Get details about selected users
 ````
 #### getRecentlyChangedArticles(options)
 ##### Options
-* limit - optional - integer
-* namespaces - optional -array
-* allowDuplicates - optional - boolean
+| Parameter | Data Type |
+|-------------|-----------|
+| limit | integer |
+| namespaces | array string |
+| allowDuplicates | boolean |
 
 ##### Returns
 ````json
@@ -125,8 +136,10 @@ Get details about selected users
 ````
 #### getRecommendations(options)
 ##### Options
-* id - required - integer
-* limit - optional, integer
+| Parameter | Data Type |
+|-------------|-----------|
+| id* | integer |
+| limit | integer |
 
 ##### Returns
 ````json
@@ -152,8 +165,10 @@ Get details about selected users
 
 #### getRelatedPages(options)
 ##### Options
-* ids - required - integer
-* limit - optional, integer
+| Parameter | Data Type |
+|-------------|-----------|
+| ids* | integer or | array integer
+| limit | integer |
 
 ##### Returns
 ````json
@@ -170,9 +185,94 @@ Get details about selected users
   "basepath": "string"
 }
 ````
+
+#### getSearchCrossWiki(options)
+##### Options
+| Parameter | Data Type |
+|-------------|-----------|
+| query* | string |
+| hub | array string |
+| lang | array string |
+| rank | array string |
+| limit | integer |
+| batch | integer |
+| height | integer |
+| width | integer |
+| snippet | integer |
+
+##### Returns
+````json
+{
+  "items": [
+    {
+      "headline": "string",
+      "desc": "string",
+      "stats": {
+        "users": "integer",
+        "articles": "integer",
+        "pages": "integer",
+        "admins": "integer",
+        "activeUsers": "integer",
+        "edits": "integer",
+        "videos": "integer",
+        "images": "integer"
+      },
+      "original_dimensions": {
+        "width": "integer",
+        "height": "integer"
+      },
+      "url": "string",
+      "image": "string",
+      "flags": [
+        "string"
+      ],
+      "wam_score": "number",
+      "id": "integer",
+      "topUsers": [
+        "string"
+      ],
+      "wordmark": "string",
+      "title": "string",
+      "lang": "string"
+    }
+  ]
+}
+````
+
+#### getSearchList(options)
+##### Options
+| Parameter | Data Type |
+|-------------|-----------|
+| query* | string |
+| type | string |
+| rank | array string |
+| limit | integer |
+| minArticleQuality | integer |
+| batch | integer |
+| namespaces | array integer |
+
+##### Returns
+````json
+{
+  "batches": "integer",
+  "items": [
+    {
+      "quality": "integer",
+      "url": "string",
+      "ns": "integer",
+      "id": "integer",
+      "title": "string"
+    }
+  ],
+  "total": "integer",
+  "currentBatch": "integer",
+  "next": "integer"
+}
+````
+
 #### getSearchSuggestion(options)
 ##### Options
-* query - required - string
+| query* | string |
 
 ##### Returns
 ````json
@@ -186,8 +286,10 @@ Get details about selected users
 ````
 #### getUsers(options)
 ##### Options
-* ids - required - array 
-* size - optional - integer
+| Parameter | Data Type |
+|-------------|-----------|
+| ids* | array integer |
+| size | integer |
 
 ##### Returns
 ````json

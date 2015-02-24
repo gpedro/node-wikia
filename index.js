@@ -12,6 +12,59 @@ split = function(value, cb) {
 },
 splitIsInt = function(value) {
   return split(value, function (val) { return is.int(parseInt(val)); });
+},
+_validateRequired = function(value, name) {
+  if(value === undefined) {
+    throw new Error('Option \'' + name + '\' is required');
+  }
+},
+_validateInt = function(value, name) {
+  if(value !== undefined && !is.int(value)) {
+    throw new Error('Option \'' + name + '\' need be integer value');
+  }
+},
+_validateStr = function(value, name) {
+  if(value !== undefined && !is.string(value)) {
+    throw new Error('Option \'' + name + '\' need be string value');
+  }
+},
+_validateIntRange = function(value, min, max, name) {
+  if(value !== undefined && (!is.int(value) || (value < min))) {
+    throw new Error('Option \'' + name + '\' exceeds limit of ' + min);
+  } else if(value > max) {
+    throw new Error('Option \'' + name + '\' exceeds limit of ' + max);
+  }
+},
+_validateBoolean = function(value, name) {
+    if(value !== undefined && !is.boolean(value)) {
+      throw new Error('Option \'' + name + '\' need be boolean value');
+    }
+},
+_validateArrayInt = function(value, name) {
+  if(value !== undefined) {
+
+    if(is.int(value)) {
+      value = [value];
+    }
+
+    if((is.string(value) && splitIsInt(value).indexOf(false)) || !is.array(value)){
+      throw new Error('Option \'' + name + '\' need be integer value or integer array');
+    }
+    return trim(value.join(','));
+  }
+
+  return value;
+},
+_validateArrayStr = function(value, name) {
+  if(value !== undefined) {
+    if(is.array(value)) {
+      value = value.join(',');
+    } else {
+      throw new Error('Option \'' + name + '\' need be string array');
+    }
+
+    return value;
+  }
 };
 
 
@@ -44,32 +97,30 @@ Wikia.prototype._request = function(url) {
 
 Wikia.prototype._getActivity = function(method, options) {
 
-  if(options !== undefined) {
-    if(options.limit !== undefined && !is.int(options.limit)) {
-      throw new Error('Option \'limit\' need be integer value');
-    }
+  options = (options === undefined) ? {} : options;
 
-    if(options.namespaces !== undefined) {
-
-      if(is.int(options.namespaces)) {
-        options.namespaces = [options.namespaces];
-      }
-
-      if(!is.array(options.namespaces) || splitIsInt(trim(options.namespaces)).indexOf(false)) {
-        throw new Error('Option \'namespaces\' need be integer value or integer array');
-      }
-
-    }
-
-    options.namespaces = (options.namespaces).join(',');
-
-    if(options.allowDuplicates !== undefined && !is.boolean(options.allowDuplicates)) {
-      throw new Error('Option \'allowDuplicates\' need be boolean value');
-    }
-  }
+  _validateInt(options.limit, 'limit');
+  options.namespaces = _validateArrayInt(options.namespaces, 'namespaces');
+  _validateBoolean(options.allowDuplicates, 'allowDuplicates');
 
   var url = this._genUrl('Activity/' + method, options);
-  return this._req(url);
+  return this._request(url);
+};
+
+Wikia.prototype._getSearch = function(method, options) {
+
+  options = (options === undefined) ? {} : options;
+
+  _validateRequired(options.query, 'query');
+  _validateRequired(options.rank, 'rank');
+
+  options.rank = _validateArrayStr(options.rank, 'rank');
+
+  _validateInt(options.limit, 'limit');
+  _validateInt(options.batch, 'batch');
+
+  var url = this._genUrl('Search/' + method, options);
+  return this._request(url);
 };
 
 Wikia.prototype.getLatestActivity = function(options) {
@@ -86,100 +137,74 @@ Wikia.prototype.getNavigation = function() {
 };
 
 Wikia.prototype.getRecommendations = function(options) {
-  if(options !== undefined) {
+  options = (options === undefined) ? {} : options;
 
-    if(options.id === undefined) {
-      throw new Error('Option \'id\' is required');
-    } else if (!is.int(options.id)) {
-      throw new Error('Option \'id\' need be integer value');
-    }
+  _validateRequired(options.id, 'id');
+  _validateInt(options.id, 'id');
 
-    if(options.limit !== undefined && !is.int(options.limit)) {
-      throw new Error('Option \'limit\' exceeds limit of 1');
-    } else {
-      if(options.limit < 1) {
-      } else if(options.limit > 30) {
-        throw new Error('Option \'limit\' exceeds limit of 30');
-      }
-
-    }
-
-  }
+  _validateIntRange(options.limit, 'limit');
 
   var url = this._genUrl('Recommendations/ForArticle', options);
   return this._request(url);
 };
 
 Wikia.prototype.getRelatedPages = function(options) {
-  if(options !== undefined) {
+  options = (options === undefined) ? {} : options;
 
-    if(options.ids === undefined) {
-      throw new Error('Option \'ids\' is required');
-    } else {
-
-      if(is.string(options.ids)) {
-        options.ids = splitIsInt(options.ids);
-      }
-
-      if(is.int(options.ids)) {
-        options.ids = [options.ids];
-      }
-
-      if(!is.array(options.ids)) {
-        throw new Error('Parameter \'ids\' need be integer value or integer array');
-      }
-    }
-
-    options.ids = (options.ids).join(',');
-
-    if(options.limit !== undefined && !is.int(options.limit)) {
-      throw new Error('Parameter \'limit\' need be integer value');
-    }
-  }
+  _validateRequired(options.ids, 'ids');
+  options.ids = _validateArrayInt(options.ids, 'ids');
+  _validateInt(options.limit);
 
   var url = this._genUrl('RelatedPages/List', options);
   return this._request(url);
 };
 
-Wikia.prototype.getSearchSuggestion = function(query) {
-  if(query === undefined) {
-    throw new Error('Parameter \'query\' is required');
+Wikia.prototype.getSearchCrossWiki = function(options) {
+
+  options = (options === undefined) ? {} : options;
+
+  _validateArrayStr(options.hub, 'hub');
+  _validateArrayStr(options.lang, 'lang');
+
+  _validateInt(options.height, 'height');
+  _validateInt(options.width, 'width');
+  _validateInt(options.snippet, 'snippet');
+
+  options.expand = 1;
+
+  return this._getSearch('CrossWiki', options);
+};
+
+Wikia.prototype.getSearchList = function(options) {
+  options = (options === undefined) ? {} : options;
+
+  _validateIntRange(options.minArticleQuality, 1, 99, 'minArticleQuality');
+
+  if(options.namespaces !== undefined) {
+   options.namespaces = _validateArrayInt(options.namespaces, 'namespaces');
   }
+
+  return this._getSearch('List', options);
+};
+
+Wikia.prototype.getSearchSuggestion = function(query) {
+  _validateRequired(query, 'query');
+  _validateStr(query, 'query');
 
   var url = this._genUrl('SearchSuggestions/List', {query: query});
   return this._request(url);
 };
 
-Wikia.prototype._getUsers = function(options) {
-  if(options !== undefined) {
+Wikia.prototype.getUsers = function(options) {
 
-    if(options.ids === undefined) {
-      throw new Error('Option \'ids\' is required');
-    } else {
+  options = (options === undefined) ? {} : options;
 
-      if(is.int(options.ids)) {
-        options.ids = [options.ids];
-      }
-
-      if(!is.array(options.ids)) {
-        throw new Error('Option \'ids\' need be integer value or integer array');
-      }
-    }
-
-    options.ids = (options.ids).join(',');
-
-    if(options.size !== undefined && !is.int(options.size)) {
-      throw new Error('Option \'size\' need be integer value');
-    }
-  }
+  _validateRequired(options.ids, 'ids');
+  options.ids = _validateArrayInt(options.ids, 'ids');
+  _validateInt(options.size, 'size');
 
   var url = this._genUrl('User/Details', options);
   return this._request(url);
-};
-
-
-Wikia.prototype.getUsers = function(options) {
-  return this._getUsers(options);
 };
 
 module.exports = Wikia;
