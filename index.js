@@ -46,7 +46,7 @@ Wikia.prototype._getActivity = function(method, options) {
 
   if(options !== undefined) {
     if(options.limit !== undefined && !is.int(options.limit)) {
-      throw new Error('Parameter \'limit\' need be integer value');
+      throw new Error('Option \'limit\' need be integer value');
     }
 
     if(options.namespaces !== undefined) {
@@ -56,7 +56,7 @@ Wikia.prototype._getActivity = function(method, options) {
       }
 
       if(!is.array(options.namespaces) || splitIsInt(trim(options.namespaces)).indexOf(false)) {
-        throw new Error('Parameter \'namespaces\' need be integer value or integer array');
+        throw new Error('Option \'namespaces\' need be integer value or integer array');
       }
 
     }
@@ -64,7 +64,7 @@ Wikia.prototype._getActivity = function(method, options) {
     options.namespaces = (options.namespaces).join(',');
 
     if(options.allowDuplicates !== undefined && !is.boolean(options.allowDuplicates)) {
-      throw new Error('Parameter \'allowDuplicates\' need be boolean value');
+      throw new Error('Option \'allowDuplicates\' need be boolean value');
     }
   }
 
@@ -89,17 +89,17 @@ Wikia.prototype.getRecommendations = function(options) {
   if(options !== undefined) {
 
     if(options.id === undefined) {
-      throw new Error('Parameter \'id\' is required');
+      throw new Error('Option \'id\' is required');
     } else if (!is.int(options.id)) {
-      throw new Error('Parameter \'id\' need be integer value');
+      throw new Error('Option \'id\' need be integer value');
     }
 
     if(options.limit !== undefined && !is.int(options.limit)) {
-      throw new Error('Parameter \'limit\' exceeds limit of 1');
+      throw new Error('Option \'limit\' exceeds limit of 1');
     } else {
       if(options.limit < 1) {
       } else if(options.limit > 30) {
-        throw new Error('Parameter \'limit\' exceeds limit of 30');
+        throw new Error('Option \'limit\' exceeds limit of 30');
       }
 
     }
@@ -114,7 +114,7 @@ Wikia.prototype.getRelatedPages = function(options) {
   if(options !== undefined) {
 
     if(options.ids === undefined) {
-      throw new Error('Parameter \'ids\' is required');
+      throw new Error('Option \'ids\' is required');
     } else {
 
       if(is.string(options.ids)) {
@@ -154,7 +154,7 @@ Wikia.prototype._getUsers = function(options) {
   if(options !== undefined) {
 
     if(options.ids === undefined) {
-      throw new Error('Parameter \'ids\' is required');
+      throw new Error('Option \'ids\' is required');
     } else {
 
       if(is.int(options.ids)) {
@@ -162,14 +162,14 @@ Wikia.prototype._getUsers = function(options) {
       }
 
       if(!is.array(options.ids)) {
-        throw new Error('Parameter \'ids\' need be integer value or integer array');
+        throw new Error('Option \'ids\' need be integer value or integer array');
       }
     }
 
     options.ids = (options.ids).join(',');
 
     if(options.size !== undefined && !is.int(options.size)) {
-      throw new Error('Parameter \'size\' need be integer value');
+      throw new Error('Option \'size\' need be integer value');
     }
   }
 
