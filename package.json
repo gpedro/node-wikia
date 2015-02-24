@@ -1,0 +1,39 @@
+{
+  "name": "node-wikia",
+  "version": "0.0.1",
+  "description": "Wikia API Client written in node.js",
+  "homepage": "https://github.com/TibiaJS/node-wikia",
+  "author": {
+    "name": "Gabriel Pedro",
+    "email": "gpedro831@gmail.com",
+    "url": "https://gpedro.net"
+  },
+  "repository": "TibiaJS/node-wikia",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "node-wikia",
+    "wikia",
+    "wiki"
+  ],
+  "dependencies": {
+    "is": "^3.0.1",
+    "q": "^1.2.0",
+    "request": "^2.53.0"
+  },
+  "devDependencies": {
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^1.0.0",
+    "time-grunt": "^1.0.0",
+    "grunt-mocha-cli": "^1.11.0",
+    "jshint-stylish": "^1.0.0"
+  },
+  "scripts": {
+    "test": "grunt"
+  }
+}
