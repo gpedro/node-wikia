@@ -72,6 +72,7 @@ Get recently changed articles
   ],
   "basepath": "string"
 }
+````
 
 #### getNavigation()
 Get wiki navigation links (the main menu of given wiki).
