@@ -35,6 +35,21 @@ Get information about the latest user activity on the current wiki
 * [getLatestActivity(options)](https://github.com/TibiaJS/node-wikia#getlatestactivityoptions) - Get latest activity information
 * [getRecentlyChangedArticles(options)](https://github.com/TibiaJS/node-wikia#getrecentlychangedarticlesoptions) - Get recently changed articles
 
+#### Articles
+Get simplified article contents
+* [getArticleAsSimpleJson(id)](https://github.com/TibiaJS/node-wikia#getarticleassimplejsonid) - Get simplified article contents
+* [getArticleDetails(options)](https://github.com/TibiaJS/node-wikia#getarticledetailsoptions) - Get details about one or more articles
+* [getArticlesList(options)](https://github.com/TibiaJS/node-wikia#getarticleslistoptions) - Get articles list in alphabetical order
+* [getArticlesListExpanded(options)](https://github.com/TibiaJS/node-wikia#getarticleslistexpandedoptions) - Get a list of pages on the current wiki
+* [getArticlesMostLinked(options)](https://github.com/TibiaJS/node-wikia#getarticlesmostlinkedoptions) - Get the most linked articles on this wiki
+* [getArticlesMostLinkedExpanded(options)](https://github.com/TibiaJS/node-wikia#getarticlesmostlinkedexpandedoptions) - Get the most linked articles on this wiki (expanded results)
+* [getArticlesNewest(options)](https://github.com/TibiaJS/node-wikia#getarticlesnewestoptions) - Get list of new articles on this wiki
+* [getArticlesPopular(options)](https://github.com/TibiaJS/node-wikia#getarticlespopularoptions) - Get popular articles for the current wiki (from the beginning of time)
+* [getArticlesPopularExpanded(options)](https://github.com/TibiaJS/node-wikia#getarticlespopularexpandedoptions) - Get popular articles for the current wiki (from the beginning of time)
+* [getArticlesMostViewed(options)](https://github.com/TibiaJS/node-wikia#getarticlesmostviewedoptions) - Get the most viewed articles on this wiki
+* [getArticlesMostViewedExpanded(options)](https://github.com/TibiaJS/node-wikia#getarticlesmostviewedexpandedoptions) - Get the most viewed articles for this wiki (expanded results)
+* [getArticlesMostViewedByHub(options)](https://github.com/TibiaJS/node-wikia#getarticlesmostviewedbyhuboptions) - Get the top articles by pageviews for a hub
+
 #### Navigation
 Get wiki navigation links (the main menu of given wiki)
 * [getNavigation()](https://github.com/TibiaJS/node-wikia#getnavigation) - Get wiki navigation links (the main menu of given wiki)
@@ -74,7 +89,7 @@ __*__ required
 | allowDuplicates | boolean |
 
 ##### Returns
-````json
+```json
 {
   "items": [
     {
@@ -87,7 +102,8 @@ __*__ required
   "basepath": "string"
 }
 
-````
+```
+
 #### getRecentlyChangedArticles(options)
 ##### Options
 | Parameter | Data Type |
@@ -97,7 +113,7 @@ __*__ required
 | allowDuplicates | boolean |
 
 ##### Returns
-````json
+```json
 {
   "items": [
     {
@@ -109,11 +125,371 @@ __*__ required
   ],
   "basepath": "string"
 }
-````
+```
+
+#### getArticleAsSimpleJson(id)
+##### Arguments
+| Parameter | Data Type |
+|-------------|-----------|
+| id* | integer |
+##### Returns
+```json
+{
+  "sections": [
+    {
+      "title": "string",
+      "level": "integer",
+      "content": [
+        {
+          "type": "string",
+          "text": "string",
+          "elements": [
+            {
+              "text": "string",
+              "elements": [
+                "ListElement"
+              ]
+            }
+          ]
+        }
+      ],
+      "images": [
+        {
+          "src": "string",
+          "caption": "string"
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### getArticleDetails(options)
+##### Options
+| Parameter | Data Type |
+|-------------|-----------|
+| ids* | array integer |
+| titles | array string |
+| abstract | integer |
+| width | integer |
+| height | integer |
+
+##### Returns
+```json
+{
+  "items": [
+    {
+      "original_dimensions": {
+        "width": "integer",
+        "height": "integer"
+      },
+      "url": "string",
+      "ns": "integer",
+      "abstract": "string",
+      "thumbnail": "string",
+      "revision": {
+        "id": "integer",
+        "user": "string",
+        "user_id": "integer",
+        "timestamp": "integer"
+      },
+      "id": "integer",
+      "title": "string",
+      "type": "string",
+      "comments": "integer"
+    }
+  ],
+  "basepath": "string"
+}
+```
+
+#### getArticlesList(options)
+##### Options
+| Parameter | Data Type |
+|-------------|-----------|
+| category | array string |
+| namespaces | array string |
+| limit | integer |
+| offset | string |
+##### Returns
+```json
+{
+  "items": [
+    {
+      "id": "integer",
+      "title": "string",
+      "url": "string",
+      "ns": "integer"
+    }
+  ],
+  "offset": "string",
+  "basepath": "string"
+}
+```
+
+#### getArticlesListExpanded(options)
+##### Options
+| Parameter | Data Type |
+|-------------|-----------|
+| category | array string |
+| namespaces | array string |
+| limit | integer |
+| offset | string |
+
+##### Returns
+```json
+{
+  "items": [
+    {
+      "original_dimensions": {
+        "width": "integer",
+        "height": "integer"
+      },
+      "url": "string",
+      "ns": "integer",
+      "abstract": "string",
+      "thumbnail": "string",
+      "revision": {
+        "id": "integer",
+        "user": "string",
+        "user_id": "integer",
+        "timestamp": "integer"
+      },
+      "id": "integer",
+      "title": "string",
+      "type": "string",
+      "comments": "integer"
+    }
+  ],
+  "offset": "string",
+  "basepath": "string"
+}
+```
+
+#### getArticlesMostLinked()
+##### Returns
+```json
+{
+  "items": [
+    {
+      "url": "string",
+      "ns": "integer",
+      "id": "integer",
+      "title": "string",
+      "backlink_cnt": "integer"
+    }
+  ],
+  "basepath": "string"
+}
+```
+
+#### getArticlesMostLinkedExpanded()
+##### Returns
+```json
+{
+  "items": [
+    {
+      "url": "string",
+      "ns": "integer",
+      "abstract": "string",
+      "revision": {
+        "id": "integer",
+        "user": "string",
+        "user_id": "integer",
+        "timestamp": "integer"
+      },
+      "id": "integer",
+      "title": "string",
+      "type": "string",
+      "backlink_cnt": "integer",
+      "comments": "integer"
+    }
+  ],
+  "basepath": "string"
+}
+```
+
+#### getArticlesNewest(options)
+##### Options
+| Parameter | Data Type |
+|-------------|-----------|
+| namespaces | array string |
+| limit | integer |
+| minArticleQuality | integer |
+
+##### Returns
+```json
+{
+  "quality": "integer",
+  "original_dimensions": {
+    "width": "integer",
+    "height": "integer"
+  },
+  "url": "string",
+  "ns": "integer",
+  "abstract": "string",
+  "creator": {
+    "avatar": "string",
+    "name": "string"
+  },
+  "thumbnail": "string",
+  "creation_date": "string",
+  "id": "integer",
+  "title": "string"
+}
+```
+
+#### getArticlesPopular(options)
+##### Options
+| Parameter | Data Type |
+|-------------|-----------|
+| limit | integer |
+| baseArticleId | integer |
+
+##### Returns
+```json
+{
+  "items": [
+    {
+      "id": "integer",
+      "title": "string",
+      "url": "string"
+    }
+  ],
+  "basepath": "string"
+}
+```
+
+#### getArticlesPopularExpanded(options)
+##### Options
+| Parameter | Data Type |
+|-------------|-----------|
+| limit | integer |
+| baseArticleId | integer |
+
+##### Returns
+```json
+{
+  "items": [
+    {
+      "original_dimensions": {
+        "width": "integer",
+        "height": "integer"
+      },
+      "url": "string",
+      "ns": "integer",
+      "abstract": "string",
+      "thumbnail": "string",
+      "revision": {
+        "id": "integer",
+        "user": "string",
+        "user_id": "integer",
+        "timestamp": "integer"
+      },
+      "id": "integer",
+      "title": "string",
+      "type": "string",
+      "comments": "integer"
+    }
+  ],
+  "basepath": "string"
+}
+```
+
+#### getArticlesMostViewed(options)
+##### Options
+| Parameter | Data Type |
+|-------------|-----------|
+| namespaces | array string |
+| category | array string |
+| limit | integer |
+| baseArticleId | integer |
+
+##### Returns
+```json
+{
+  "items": [
+    {
+      "id": "integer",
+      "title": "string",
+      "url": "string",
+      "ns": "integer"
+    }
+  ],
+  "basepath": "string"
+}
+```
+
+#### getArticlesMostViewedExpanded(options)
+##### Options
+| Parameter | Data Type |
+|-------------|-----------|
+| namespaces | array string |
+| category | array string |
+| limit | integer |
+| baseArticleId | integer |
+##### Returns
+```json
+{
+  "items": [
+    {
+      "original_dimensions": {
+        "width": "integer",
+        "height": "integer"
+      },
+      "url": "string",
+      "ns": "integer",
+      "abstract": "string",
+      "thumbnail": "string",
+      "revision": {
+        "id": "integer",
+        "user": "string",
+        "user_id": "integer",
+        "timestamp": "integer"
+      },
+      "id": "integer",
+      "title": "string",
+      "type": "string",
+      "comments": "integer"
+    }
+  ],
+  "basepath": "string"
+}
+```
+
+#### getArticlesMostViewedByHub(options)
+##### Options
+| Parameter | Data Type |
+|-------------|-----------|
+| hub* | array string |
+| lang | array string |
+| namespaces | array string |
+
+##### Returns
+```json
+{
+  "items": [
+    {
+      "wiki": {
+        "id": "integer",
+        "name": "string",
+        "language": "string",
+        "domain": "string"
+      },
+      "articles": [
+        {
+          "id": "integer",
+          "ns": "integer"
+        }
+      ]
+    }
+  ]
+}
+```
 
 #### getNavigation()
 ##### Returns
-````json
+```json
 {
   "navigation": {
     "wikia": [
@@ -133,7 +509,7 @@ __*__ required
     ]
   }
 }
-````
+```
 #### getRecommendations(options)
 ##### Options
 | Parameter | Data Type |
@@ -142,7 +518,7 @@ __*__ required
 | limit | integer |
 
 ##### Returns
-````json
+```json
 {
   "items": [
     {
@@ -161,17 +537,17 @@ __*__ required
     }
   ]
 }
-````
+```
 
 #### getRelatedPages(options)
 ##### Options
 | Parameter | Data Type |
 |-------------|-----------|
-| ids* | integer or | array integer
+| ids* | integer or array integer |
 | limit | integer |
 
 ##### Returns
-````json
+```json
 {
   "items": [
     {
@@ -184,7 +560,7 @@ __*__ required
   ],
   "basepath": "string"
 }
-````
+```
 
 #### getSearchCrossWiki(options)
 ##### Options
@@ -201,7 +577,7 @@ __*__ required
 | snippet | integer |
 
 ##### Returns
-````json
+```json
 {
   "items": [
     {
@@ -237,7 +613,7 @@ __*__ required
     }
   ]
 }
-````
+```
 
 #### getSearchList(options)
 ##### Options
@@ -252,7 +628,7 @@ __*__ required
 | namespaces | array integer |
 
 ##### Returns
-````json
+```json
 {
   "batches": "integer",
   "items": [
@@ -268,14 +644,14 @@ __*__ required
   "currentBatch": "integer",
   "next": "integer"
 }
-````
+```
 
 #### getSearchSuggestion(options)
 ##### Options
 | query* | string |
 
 ##### Returns
-````json
+```json
 {
   "items": [
     {
@@ -283,7 +659,7 @@ __*__ required
     }
   ]
 }
-````
+```
 #### getUsers(options)
 ##### Options
 | Parameter | Data Type |
@@ -292,7 +668,7 @@ __*__ required
 | size | integer |
 
 ##### Returns
-````json
+```json
 
 {
   "items": [
@@ -307,7 +683,7 @@ __*__ required
   ],
   "basepath": "string"
 }
-````
+```
 
 ## License
 

@@ -13,31 +13,35 @@ split = function(value, cb) {
 splitIsInt = function(value) {
   return split(value, function (val) { return is.int(parseInt(val)); });
 },
+abort = function(str) {
+  console.trace(str);
+  process.exit(1);
+},
 _validateRequired = function(value, name) {
   if(value === undefined) {
-    throw new Error('Option \'' + name + '\' is required');
+    abort('Option \'' + name + '\' is required');
   }
 },
 _validateInt = function(value, name) {
   if(value !== undefined && !is.int(value)) {
-    throw new Error('Option \'' + name + '\' need be integer value');
+    abort('Option \'' + name + '\' need be integer value');
   }
 },
 _validateStr = function(value, name) {
   if(value !== undefined && !is.string(value)) {
-    throw new Error('Option \'' + name + '\' need be string value');
+    abort('Option \'' + name + '\' need be string value');
   }
 },
 _validateIntRange = function(value, min, max, name) {
   if(value !== undefined && (!is.int(value) || (value < min))) {
-    throw new Error('Option \'' + name + '\' exceeds limit of ' + min);
+    abort('Option \'' + name + '\' exceeds limit of ' + min);
   } else if(value > max) {
-    throw new Error('Option \'' + name + '\' exceeds limit of ' + max);
+    abort('Option \'' + name + '\' exceeds limit of ' + max);
   }
 },
 _validateBoolean = function(value, name) {
     if(value !== undefined && !is.boolean(value)) {
-      throw new Error('Option \'' + name + '\' need be boolean value');
+      abort('Option \'' + name + '\' need be boolean value');
     }
 },
 _validateArrayInt = function(value, name) {
@@ -48,7 +52,7 @@ _validateArrayInt = function(value, name) {
     }
 
     if((is.string(value) && splitIsInt(value).indexOf(false)) || !is.array(value)){
-      throw new Error('Option \'' + name + '\' need be integer value or integer array');
+      abort('Option \'' + name + '\' need be integer value or integer array');
     }
     return trim(value.join(','));
   }
@@ -60,7 +64,7 @@ _validateArrayStr = function(value, name) {
     if(is.array(value)) {
       value = value.join(',');
     } else {
-      throw new Error('Option \'' + name + '\' need be string array');
+      abort('Option \'' + name + '\' need be string array');
     }
 
     return value;
@@ -123,6 +127,153 @@ Wikia.prototype._getSearch = function(method, options) {
   return this._request(url);
 };
 
+Wikia.prototype._getArticleList = function(options) {
+
+  options = (options === undefined) ? {} : options;
+
+  _validateStr(options.category,'category');
+
+  if(options.namespaces !== undefined) {
+   options.namespaces = _validateArrayInt(options.namespaces, 'namespaces');
+  }
+
+  _validateInt(options.limit,'limit');
+  _validateStr(options.offset,'offset');
+
+  var url = this._genUrl('Articles/List', options);
+  return this._request(url);
+};
+
+Wikia.prototype.getArticleAsSimpleJson = function(id) {
+  _validateRequired(id, 'id');
+  _validateInt(id, 'id');
+
+  var url = this._genUrl('Articles/AsSimpleJson', { id: id });
+  return this._request(url);
+};
+
+Wikia.prototype.getArticleDetails = function(options) {
+
+  options = (options === undefined) ? {} : options;
+
+  _validateRequired(options.ids, 'ids');
+  options.ids = _validateArrayInt(options.ids, 'ids');
+
+  if(options.titles !== undefined) {
+    if(is.array(options.titles)) {
+      options.titles = options.titles.join(',').replace(/\s/g,'_');
+    } else {
+      abort('Option \'titles\' need be string array');
+    }
+  }
+
+  _validateInt(options.abstract, 'abstract');
+  _validateInt(options.width, 'width');
+  _validateInt(options.height, 'height');
+
+  var url = this._genUrl('Articles/Details', options);
+  return this._request(url);
+};
+
+Wikia.prototype.getArticlesList = function(options) {
+  return this._getArticleList(options);
+};
+
+Wikia.prototype.getArticlesListExpanded = function(options) {
+
+  options = (options === undefined) ? {} : options;
+  options.expand = 1;
+
+  return this._getArticleList(options);
+};
+
+Wikia.prototype.getArticlesMostLinked = function(options) {
+  options = (options === undefined) ? {} : options;
+
+  var url = this._genUrl('Articles/List', options);
+  return this._request(url);
+};
+
+Wikia.prototype.getArticlesMostLinkedExpanded = function() {
+  return this.getArticlesMostLinked({expand: 1});
+};
+
+Wikia.prototype.getArticlesNewest = function(options) {
+  options = (options === undefined) ? {} : options;
+
+  if(options.namespaces !== undefined) {
+   options.namespaces = _validateArrayInt(options.namespaces, 'namespaces');
+  }
+
+  _validateIntRange(options.limit, 1, 100, 'limit');
+  _validateIntRange(options.minArticleQuality, 1, 99, 'minArticleQuality');
+
+  var url = this._genUrl('Articles/New', options);
+  return this._request(url);
+};
+
+Wikia.prototype.getArticlesPopular = function(options) {
+  options = (options === undefined) ? {} : options;
+
+  _validateIntRange(options.limit, 1, 10, 'limit');
+  _validateInt(options.baseArticleId, 'baseArticleId');
+
+  var url = this._genUrl('Articles/Popular', options);
+  return this._request(url);
+};
+
+Wikia.prototype.getArticlesPopularExpanded = function(options) {
+  options = (options === undefined) ? {} : options;
+
+  _validateIntRange(options.limit, 1, 10, 'limit');
+  _validateInt(options.baseArticleId, 'baseArticleId');
+
+  options.expand = 1;
+
+  var url = this._genUrl('Articles/Popular', options);
+  return this._request(url);
+};
+
+Wikia.prototype.getArticlesMostViewed = function(options) {
+
+  options = (options === undefined) ? {} : options;
+
+  if(options.namespaces !== undefined) {
+   options.namespaces = _validateArrayInt(options.namespaces, 'namespaces');
+  }
+
+  _validateStr(options.category,'category');
+  _validateInt(options.limit,'limit');
+  _validateInt(options.baseArticleId,'baseArticleId');
+
+  var url = this._genUrl('Articles/Top', options);
+  return this._request(url);
+};
+
+Wikia.prototype.getArticlesMostViewedExpanded = function(options) {
+
+  options = (options === undefined) ? {} : options;
+  options.expand = 1;
+
+  return this.getArticlesMostViewed(options);
+};
+
+Wikia.prototype.getArticlesMostViewedByHub = function(options) {
+
+  options = (options === undefined) ? {} : options;
+
+  _validateRequired(options.hub, 'hub');
+  _validateArrayStr(options.hub, 'hub');
+  _validateArrayStr(options.lang, 'lang');
+
+  if(options.namespaces !== undefined) {
+   options.namespaces = _validateArrayInt(options.namespaces, 'namespaces');
+  }
+
+  var url = this._genUrl('Articles/TopByHub', options);
+  return this._request(url);
+};
+
 Wikia.prototype.getLatestActivity = function(options) {
   return this._getActivity('LatestActivity', options);
 };
@@ -153,7 +304,7 @@ Wikia.prototype.getRelatedPages = function(options) {
 
   _validateRequired(options.ids, 'ids');
   options.ids = _validateArrayInt(options.ids, 'ids');
-  _validateInt(options.limit);
+  _validateInt(options.limit, 'limit');
 
   var url = this._genUrl('RelatedPages/List', options);
   return this._request(url);
