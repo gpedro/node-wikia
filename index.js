@@ -15,7 +15,6 @@ splitIsInt = function(value) {
 },
 abort = function(str) {
   console.trace(str);
-  process.exit(1);
 },
 _validateRequired = function(value, name) {
   if(value === undefined) {
