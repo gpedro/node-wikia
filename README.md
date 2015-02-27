@@ -32,48 +32,48 @@ tibia
 ### Summary
 #### Activity
 Get information about the latest user activity on the current wiki
-* [getLatestActivity(options)](https://github.com/TibiaJS/node-wikia#getlatestactivityoptions) - Get latest activity information
-* [getRecentlyChangedArticles(options)](https://github.com/TibiaJS/node-wikia#getrecentlychangedarticlesoptions) - Get recently changed articles
+* [getLatestActivity(options)](https://github.com/gpedro/node-wikia#getlatestactivityoptions) - Get latest activity information
+* [getRecentlyChangedArticles(options)](https://github.com/gpedro/node-wikia#getrecentlychangedarticlesoptions) - Get recently changed articles
 
 #### Articles
 Get simplified article contents
-* [getArticleAsSimpleJson(id)](https://github.com/TibiaJS/node-wikia#getarticleassimplejsonid) - Get simplified article contents
-* [getArticleDetails(options)](https://github.com/TibiaJS/node-wikia#getarticledetailsoptions) - Get details about one or more articles
-* [getArticlesList(options)](https://github.com/TibiaJS/node-wikia#getarticleslistoptions) - Get articles list in alphabetical order
-* [getArticlesListExpanded(options)](https://github.com/TibiaJS/node-wikia#getarticleslistexpandedoptions) - Get a list of pages on the current wiki
-* [getArticlesMostLinked(options)](https://github.com/TibiaJS/node-wikia#getarticlesmostlinkedoptions) - Get the most linked articles on this wiki
-* [getArticlesMostLinkedExpanded(options)](https://github.com/TibiaJS/node-wikia#getarticlesmostlinkedexpandedoptions) - Get the most linked articles on this wiki (expanded results)
-* [getArticlesNewest(options)](https://github.com/TibiaJS/node-wikia#getarticlesnewestoptions) - Get list of new articles on this wiki
-* [getArticlesPopular(options)](https://github.com/TibiaJS/node-wikia#getarticlespopularoptions) - Get popular articles for the current wiki (from the beginning of time)
-* [getArticlesPopularExpanded(options)](https://github.com/TibiaJS/node-wikia#getarticlespopularexpandedoptions) - Get popular articles for the current wiki (from the beginning of time)
-* [getArticlesMostViewed(options)](https://github.com/TibiaJS/node-wikia#getarticlesmostviewedoptions) - Get the most viewed articles on this wiki
-* [getArticlesMostViewedExpanded(options)](https://github.com/TibiaJS/node-wikia#getarticlesmostviewedexpandedoptions) - Get the most viewed articles for this wiki (expanded results)
-* [getArticlesMostViewedByHub(options)](https://github.com/TibiaJS/node-wikia#getarticlesmostviewedbyhuboptions) - Get the top articles by pageviews for a hub
+* [getArticleAsSimpleJson(id)](https://github.com/gpedro/node-wikia#getarticleassimplejsonid) - Get simplified article contents
+* [getArticleDetails(options)](https://github.com/gpedro/node-wikia#getarticledetailsoptions) - Get details about one or more articles
+* [getArticlesList(options)](https://github.com/gpedro/node-wikia#getarticleslistoptions) - Get articles list in alphabetical order
+* [getArticlesListExpanded(options)](https://github.com/gpedro/node-wikia#getarticleslistexpandedoptions) - Get a list of pages on the current wiki
+* [getArticlesMostLinked(options)](https://github.com/gpedro/node-wikia#getarticlesmostlinkedoptions) - Get the most linked articles on this wiki
+* [getArticlesMostLinkedExpanded(options)](https://github.com/gpedro/node-wikia#getarticlesmostlinkedexpandedoptions) - Get the most linked articles on this wiki (expanded results)
+* [getArticlesNewest(options)](https://github.com/gpedro/node-wikia#getarticlesnewestoptions) - Get list of new articles on this wiki
+* [getArticlesPopular(options)](https://github.com/gpedro/node-wikia#getarticlespopularoptions) - Get popular articles for the current wiki (from the beginning of time)
+* [getArticlesPopularExpanded(options)](https://github.com/gpedro/node-wikia#getarticlespopularexpandedoptions) - Get popular articles for the current wiki (from the beginning of time)
+* [getArticlesMostViewed(options)](https://github.com/gpedro/node-wikia#getarticlesmostviewedoptions) - Get the most viewed articles on this wiki
+* [getArticlesMostViewedExpanded(options)](https://github.com/gpedro/node-wikia#getarticlesmostviewedexpandedoptions) - Get the most viewed articles for this wiki (expanded results)
+* [getArticlesMostViewedByHub(options)](https://github.com/gpedro/node-wikia#getarticlesmostviewedbyhuboptions) - Get the top articles by pageviews for a hub
 
 #### Navigation
 Get wiki navigation links (the main menu of given wiki)
-* [getNavigation()](https://github.com/TibiaJS/node-wikia#getnavigation) - Get wiki navigation links (the main menu of given wiki)
+* [getNavigation()](https://github.com/gpedro/node-wikia#getnavigation) - Get wiki navigation links (the main menu of given wiki)
 
 #### Recommendations
 Get recommendations for article from many sources
-* [getRecommendations(options)](https://github.com/TibiaJS/node-wikia#getrecommendationsoptions) - Get recommendations for article from many sources
+* [getRecommendations(options)](https://github.com/gpedro/node-wikia#getrecommendationsoptions) - Get recommendations for article from many sources
 
 #### Related Pages
 Get pages related to a given article ID
-* [getRelatedPages(options)](https://github.com/TibiaJS/node-wikia#getrelatedpagesoptions) - Get pages related to a given article ID
+* [getRelatedPages(options)](https://github.com/gpedro/node-wikia#getrelatedpagesoptions) - Get pages related to a given article ID
 
 #### Search
 Get results for combined (wiki and cross-wiki) search
-* [getSearchCrossWiki(options)](https://github.com/TibiaJS/node-wikia#getsearchcrosswikioptions) - Get results for cross-wiki search (extended response)
-* [getSearchList(options)](https://github.com/TibiaJS/node-wikia#getsearchlistoptions) - Do search for given phrase
+* [getSearchCrossWiki(options)](https://github.com/gpedro/node-wikia#getsearchcrosswikioptions) - Get results for cross-wiki search (extended response)
+* [getSearchList(options)](https://github.com/gpedro/node-wikia#getsearchlistoptions) - Do search for given phrase
 
 #### Search Suggestion
 Find suggested phrases for chosen query
-* [getSearchSuggestion(options)](https://github.com/TibiaJS/node-wikia#getsearchsuggestionoptions) - Find suggested phrases for chosen query
+* [getSearchSuggestion(options)](https://github.com/gpedro/node-wikia#getsearchsuggestionoptions) - Find suggested phrases for chosen query
 
 #### User
 Get details about selected users
-* [getUsers(options)](https://github.com/TibiaJS/node-wikia#getusersoptions) - Get details about selected users
+* [getUsers(options)](https://github.com/gpedro/node-wikia#getusersoptions) - Get details about selected users
 
 =====
 
@@ -648,6 +648,8 @@ __*__ required
 
 #### getSearchSuggestion(options)
 ##### Options
+| Parameter | Data Type |
+|-------------|-----------|
 | query* | string |
 
 ##### Returns
@@ -689,7 +691,7 @@ __*__ required
 
 The MIT License (MIT)
 
-Copyright (c) 2015 TibiaJS
+Copyright (c) 2015 Gabriel Pedro
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -700,7 +702,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 [npm-url]: https://npmjs.org/package/node-wikia
 [npm-image]: https://badge.fury.io/js/node-wikia.svg
-[travis-url]: https://travis-ci.org/TibiaJS/node-wikia
-[travis-image]: https://travis-ci.org/TibiaJS/node-wikia.svg?branch=master
-[daviddm-url]: https://david-dm.org/TibiaJS/node-wikia.svg?theme=shields.io
-[daviddm-image]: https://david-dm.org/TibiaJS/node-wikia
+[travis-url]: https://travis-ci.org/gpedro/node-wikia
+[travis-image]: https://travis-ci.org/gpedro/node-wikia.svg?branch=master
+[daviddm-url]: https://david-dm.org/gpedro/node-wikia.svg?theme=shields.io
+[daviddm-image]: https://david-dm.org/gpedro/node-wikia

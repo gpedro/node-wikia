@@ -2,13 +2,13 @@
   "name": "node-wikia",
   "version": "0.0.2",
   "description": "Wikia API Client written in node.js",
-  "homepage": "https://github.com/TibiaJS/node-wikia",
+  "homepage": "https://github.com/gpedro/node-wikia",
   "author": {
     "name": "Gabriel Pedro",
     "email": "gpedro831@gmail.com",
     "url": "https://gpedro.net"
   },
-  "repository": "TibiaJS/node-wikia",
+  "repository": "gpedro/node-wikia",
   "license": "MIT",
   "files": [
     "index.js"
