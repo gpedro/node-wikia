@@ -115,7 +115,6 @@ Wikia.prototype._getSearch = function(method, options) {
   options = (options === undefined) ? {} : options;
 
   _validateRequired(options.query, 'query');
-  _validateRequired(options.rank, 'rank');
 
   options.rank = _validateArrayStr(options.rank, 'rank');
 
